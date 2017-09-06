@@ -10,6 +10,11 @@ export default {
         return {
             msg: 'Welcome to Your Vue.js App. It is working! :)'
         }
+    },
+    head: {
+        title: {
+            inner: "My Title"
+        }
     }
 }
 </script>
