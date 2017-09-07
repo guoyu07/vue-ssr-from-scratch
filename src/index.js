@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 
 import App from './App'
 
+import './assets/main.scss'
 
 Vue.use(Vuex)
 Vue.use(VueHead)
