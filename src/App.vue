@@ -2,6 +2,7 @@
     <div>
         <h1 class="message">{{ msg }}</h1>
         <h2 class="message2">{{ msg2 }}</h2>
+        <p class="text">sfksev sdfefr dvg</p>
     </div>
 </template>
 
