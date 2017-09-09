@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = {
@@ -11,9 +11,9 @@ module.exports = {
         'index': './src/index.js'
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist/',
-        filename: '[name].bundle.js'
+        path: path.resolve(__dirname, 'dist/static'),
+        publicPath: '/static/',
+        filename: 'js/[name].bundle.js'
     },
     module: {
         rules: [
@@ -43,14 +43,23 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin("styles.css"),
+        new ExtractTextPlugin("css/styles.css"),
+        new HtmlWebpackPlugin({
+            template: 'index.template.html',
+        })
     ],
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            '@': path.resolve(__dirname, 'src'),
+            '@': path.resolve(__dirname, 'src')
         }
     },
+    devServer: {
+        contentBase: path.resolve(__dirname, 'dist/templates'),
+        port: 8080,
+        inline: true,
+        stats: 'errors-only',
+    }
 }
 
 

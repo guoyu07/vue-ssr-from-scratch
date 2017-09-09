@@ -1,0 +1,30 @@
+<template>
+    <div>
+        <h1 class="message">{{ msg }}</h1>
+        <h2 class="message2">{{ msg2 }}</h2>
+        <p class="text">about</p>
+        <router-link to="/">home</router-link>
+    </div>
+</template>
+
+<script>
+export default {
+    data () {
+        return {
+            msg: 'Welcome to Your Vue.js App. It is working! :)',
+            'msg2': 'message 2'
+        }
+    },
+    head: {
+        title: {
+            inner: "About Page"
+        }
+    }
+}
+</script>
+
+<style lang="scss">
+// @import './assets/main.scss';
+
+
+</style>
