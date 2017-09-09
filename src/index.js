@@ -6,8 +6,8 @@ import App from './layouts/App';
 import './config';
 
 
-import './assets/main.scss';
-import './assets/index.css';
+import './assets/styles/main.scss';
+import './assets/styles/index.css';
 
 
 
