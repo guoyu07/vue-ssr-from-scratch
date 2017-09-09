@@ -9,7 +9,7 @@
     "dev": "webpack -d",
     "build": "webpack -p",
     "start": "webpack-dev-server --inline --hot",
-    "render": "node bin/dev"
+    "render": "node bin/dev.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
