@@ -6,7 +6,7 @@ import App from '../layouts/App';
 import '../config';
 
 
-import '../assets/styles/main.scss';
+
 
 
 new Vue({

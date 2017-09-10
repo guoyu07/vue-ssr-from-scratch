@@ -60,12 +60,7 @@ module.exports = {
                             outputPath: 'img/',
                         },
                     },
-                ],
-                
-            },
-            { 
-                test: /\.ejs$/, 
-                use: 'ejs-loader?variable=data' 
+                ],  
             },
         ]
     },
@@ -73,24 +68,39 @@ module.exports = {
         contentBase: path.resolve(__dirname, 'dist'),
         port: 8080,
         inline: true,
-        stats: 'errors-only',
+        // stats: 'errors-only',
     },
     plugins: [
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
         }),
+        new webpack.optimize.CommonsChunkPlugin('vendors'),
         new ExtractTextPlugin("css/styles.css"),
         new HtmlWebpackPlugin({
-            chunks: ["index"],
-            template: 'index.template.ejs',
-            // title: 'Home Page',
-            filename: '../index.html'
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true
+            },
+            chunks: ["index", "vendors"],
+            template: 'src/index.template.ejs',
+            filename: '../index.html',
+            title: 'Home Page',
         }),
         new HtmlWebpackPlugin({
-            chunks: ["about"],
-            template: 'index.template.ejs',
-            // title: 'About Page',
-            filename: '../about/index.html'
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true
+            },
+            chunks: ["about", "vendors"],
+            template: 'src/index.template.ejs',
+            filename: '../about/index.html',
+            title: 'About Page'
         })
     ],
     // watch: NODE_ENV == 'development',

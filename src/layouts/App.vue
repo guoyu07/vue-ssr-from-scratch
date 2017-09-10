@@ -1,7 +1,10 @@
 <template>
     <div>
-        <vue-progress-bar></vue-progress-bar>
         <router-view></router-view>
+        <vue-progress-bar></vue-progress-bar>
+
+        <button @click="Start" class="progress">Start</button>
+        <button @click="Finish" class="progress">Finish</button>
     </div>
 </template>
 
@@ -14,11 +17,21 @@ export default {
             'msg2': 'message 2'
         }
     },
+    methods: {
+        Start() {
+            this.$Progress.start()
+        },
+        Finish() {
+            this.$Progress.finish()
+        }
+    }
 }
 </script>
 
 <style lang="scss">
-// @import './assets/main.scss';
 
+.progress {
+    margin-top:20px
+}
 
 </style>
