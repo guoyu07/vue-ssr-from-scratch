@@ -5,6 +5,10 @@
         <p class="text">home Page is this</p>
         <!--router-link to="/about">about</router-link-->
         <button @click="changeLoction">about</button>
+
+        <div class="box-container">
+            <div class="box"></div>
+        </div>
     </div>
 </template>
 
@@ -20,6 +24,9 @@ export default {
         title: {
             inner: "Home Page"
         }
+    },
+    mounted() {
+        
     },
     methods: {
         changeLoction() {

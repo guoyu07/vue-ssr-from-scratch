@@ -41,14 +41,14 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader?sourceMap'
+                    use: ['css-loader', 'postcss-loader']
                 })  
             },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader?sourceMap','sass-loader?sourceMap']
+                    use: ['css-loader', 'postcss-loader','sass-loader']
                 })  
             },
             {
@@ -72,7 +72,9 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV)
+            'NODE_ENV': JSON.stringify(NODE_ENV),
+            'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+            'PRODUCTION': JSON.stringify(NODE_ENV!=='development'),
         }),
         new webpack.optimize.CommonsChunkPlugin('vendors'),
         new ExtractTextPlugin("css/styles.css"),
@@ -88,6 +90,7 @@ module.exports = {
             template: 'src/index.template.ejs',
             filename: '../index.html',
             title: 'Home Page',
+            hash:true,
         }),
         new HtmlWebpackPlugin({
             minify: {
@@ -100,11 +103,12 @@ module.exports = {
             chunks: ["about", "vendors"],
             template: 'src/index.template.ejs',
             filename: '../about/index.html',
-            title: 'About Page'
+            title: 'About Page',
+            hash:true,
         })
     ],
     // watch: NODE_ENV == 'development',
-    devtool: NODE_ENV == 'development' ? 'source-map' : false,
+    devtool: NODE_ENV == 'development' ? 'eval-source-map' : false,
 }
 
 
