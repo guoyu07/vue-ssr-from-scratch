@@ -13,11 +13,6 @@ export default {
             'msg2': 'message 2'
         }
     },
-    head: {
-        title: {
-            inner: "My Title"
-        }
-    }
 }
 </script>
 
