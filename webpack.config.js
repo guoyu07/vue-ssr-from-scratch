@@ -10,7 +10,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 
 
-module.exports = {
+var config = {
     entry: {
         'index': './src/pages/index.js',
         'about': './src/pages/about.js',
@@ -112,3 +112,4 @@ module.exports = {
 }
 
 
+module.exports = config;
