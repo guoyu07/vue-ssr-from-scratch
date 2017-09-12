@@ -26,7 +26,7 @@ if(NODE_ENV === 'development') {
 
 
     app.get("/", (req, res, next) => {
-        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'index.html'), (err, result) => {
+        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/home.html'), (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -37,7 +37,7 @@ if(NODE_ENV === 'development') {
     });
 
     app.get("/about", (req, res, next) => {
-        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'about/index.html'), (err, result) => {
+        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/about.html'), (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -54,11 +54,11 @@ else {
     app.use('/static', express.static(path.join(DIST_DIR, 'static')));
 
     app.get('/', (req, res)=>{
-        res.sendFile(path.join(DIST_DIR, 'index.html'));
+        res.sendFile(path.join(DIST_DIR, 'templates/home.html'));
     });
 
     app.get('/about', (req, res)=>{
-        res.sendFile(path.join(DIST_DIR, 'about/index.html'));
+        res.sendFile(path.join(DIST_DIR, 'templates/about.html'));
     });
 
 

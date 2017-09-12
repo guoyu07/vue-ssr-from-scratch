@@ -9,12 +9,20 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 
+const pages = [
+    {page: 'home', title:'Home Page'},
+    {page: 'about', title:'About Page'},
+]
+
 
 var config = {
-    entry: {
-        'index': './src/pages/index.js',
-        'about': './src/pages/about.js',
-    },
+    entry: (()=>{
+        let e = {};
+        for(let obj of pages) {
+            e[obj.page] = `./src/pages/${obj.page}.js`
+        }
+        return e;
+    })(),
     output: {
         path: path.resolve(__dirname, 'dist/static'),
         publicPath: '/static/',
@@ -65,7 +73,7 @@ var config = {
         ]
     },
     devServer: {
-        contentBase: path.resolve(__dirname, 'dist'),
+        contentBase: path.resolve(__dirname, 'dist/templates'),
         port: 8080,
         inline: true,
         // stats: 'errors-only',
@@ -78,7 +86,9 @@ var config = {
         }),
         new webpack.optimize.CommonsChunkPlugin('vendors'),
         new ExtractTextPlugin("css/styles.css"),
-        new HtmlWebpackPlugin({
+        
+    ].concat(pages.map(obj=>{
+        return new HtmlWebpackPlugin({
             minify: {
                 collapseWhitespace: true,
                 removeComments: true,
@@ -86,27 +96,13 @@ var config = {
                 removeScriptTypeAttributes: true,
                 removeStyleLinkTypeAttributes: true
             },
-            chunks: ["index", "vendors"],
+            chunks: [obj.page, "vendors"],
             template: 'src/index.template.ejs',
-            filename: '../index.html',
-            title: 'Home Page',
-            hash:true,
-        }),
-        new HtmlWebpackPlugin({
-            minify: {
-                collapseWhitespace: true,
-                removeComments: true,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true
-            },
-            chunks: ["about", "vendors"],
-            template: 'src/index.template.ejs',
-            filename: '../about/index.html',
-            title: 'About Page',
+            filename: `../templates/${obj.page}.html`,
+            title: obj.title,
             hash:true,
         })
-    ],
+    })),
     // watch: NODE_ENV == 'development',
     devtool: NODE_ENV == 'development' ? 'eval-source-map' : false,
 }
