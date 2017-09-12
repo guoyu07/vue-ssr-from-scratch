@@ -49,8 +49,6 @@ if(NODE_ENV === 'development') {
 }
 else {  
 
-    console.log('prodaction')
-
     app.use('/static', express.static(path.join(DIST_DIR, 'static')));
 
     app.get('/', (req, res)=>{
@@ -88,5 +86,5 @@ else {
 
 
 app.listen(PORT, ()=>{
-    console.log(`listening to port ${PORT}`);
+    console.log(`listening to port ${PORT} (${NODE_ENV})`);
 });
