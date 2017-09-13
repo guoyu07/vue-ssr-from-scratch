@@ -1,15 +1,21 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
-import routes from '../config/router/home';
 
 import App from '../layouts/App';
 
 import '../config';
+import routes from '../config/routes/home';
 
 
 const router = new VueRouter({
     mode: 'history',
-    routes
+    routes: [
+        {
+            path: '/',
+            children: routes,
+            component: ()=>import('@/components/Home'),
+        }
+    ]
 });
 
 new Vue({

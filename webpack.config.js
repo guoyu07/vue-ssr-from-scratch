@@ -9,10 +9,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 
-const pages = [
-    {page: 'home', title:'Home Page'},
-    {page: 'about', title:'About Page'},
-]
+const pages = require('./bin/config');
 
 
 var config = {
