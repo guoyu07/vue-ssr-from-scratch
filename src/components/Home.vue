@@ -4,11 +4,14 @@
         <h2 class="message2">{{ msg2 }}</h2>
         <p class="text">home Page is this</p>
         <!--router-link to="/about">about</router-link-->
-        <button @click="changeLoction">about</button>
-
-        <div class="box-container">
-            <div class="box"></div>
+        <div v-if="articles">
+            <div v-for="article in articles" :key="article.id" @click>
+                <h3>{{article.title}}</h3>
+                <input type="button" value="Read More" @click="readMore(article.id)">
+            </div>
         </div>
+        
+
     </div>
 </template>
 
@@ -16,8 +19,9 @@
 export default {
     data () {
         return {
-            msg: 'Welcome to Home Page',
-            'msg2': 'message 2'
+            msg: 'This is Home page',
+            msg2: 'Welcome',
+            articles: null,
         }
     },
     head: {
@@ -25,19 +29,22 @@ export default {
             inner: "Home Page"
         }
     },
-    mounted() {
-        
+    beforeCreate() {
+        this.$http.get('/data').then((responce)=>{
+            this.articles = responce.data;
+        }).catch((error)=>{
+            console.log('error:',error)
+        })
     },
     methods: {
-        changeLoction() {
-            location.assign('/about')
+        readMore(id) {
+            location.assign(`/article/${id}`)
         }
     }
 }
 </script>
 
 <style lang="scss">
-// @import './assets/main.scss';
 
 
 </style>

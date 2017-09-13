@@ -7,9 +7,9 @@ const pages = [
         url: '/'
     },
     {
-        page: 'about', 
-        title:'About Page', 
-        url: '/about'
+        page: 'article', 
+        title:'Article Page', 
+        url: '/article'
     },
 ]
 

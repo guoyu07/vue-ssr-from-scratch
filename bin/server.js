@@ -16,6 +16,9 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const compiler = webpack(webpackConfig);
 
+
+const data = require('./data')
+
 if(NODE_ENV === 'development') {  
     app.use(webpackDevMiddleware(compiler, {
         publicPath: webpackConfig.output.publicPath
@@ -36,8 +39,8 @@ if(NODE_ENV === 'development') {
         });
     });
 
-    app.get("/about", (req, res, next) => {
-        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/about.html'), (err, result) => {
+    app.get("/article/:id", (req, res, next) => {
+        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/article.html'), (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -55,15 +58,17 @@ else {
         res.sendFile(path.join(DIST_DIR, 'templates/home.html'));
     });
 
-    app.get('/about', (req, res)=>{
-        res.sendFile(path.join(DIST_DIR, 'templates/about.html'));
+    app.get('/article/:id', (req, res)=>{
+        res.sendFile(path.join(DIST_DIR, 'templates/article.html'));
     });
 
 
     // app.get("*", (req, res) => res.sendFile(HTML_FILE));
 }
 
-
+app.get('/data', (req, res)=>{
+    res.json(data);
+});
 
 
 
