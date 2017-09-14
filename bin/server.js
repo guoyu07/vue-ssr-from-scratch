@@ -10,7 +10,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const DIST_DIR = path.join(__dirname, '../dist');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 
 const app = express();
