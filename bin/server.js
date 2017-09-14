@@ -17,7 +17,10 @@ const app = express();
 const compiler = webpack(webpackConfig);
 
 
-const data = require('./data')
+
+
+
+const data = require('./data');
 
 if(NODE_ENV === 'development') {  
     app.use(webpackDevMiddleware(compiler, {
@@ -29,7 +32,7 @@ if(NODE_ENV === 'development') {
 
 
     app.get("/", (req, res, next) => {
-        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/home.html'), (err, result) => {
+        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/home.ejs'), (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -40,7 +43,7 @@ if(NODE_ENV === 'development') {
     });
 
     app.get("/article/:id", (req, res, next) => {
-        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/article.html'), (err, result) => {
+        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/article.ejs'), (err, result) => {
             if (err) {
                 return next(err);
             }
@@ -52,14 +55,24 @@ if(NODE_ENV === 'development') {
 }
 else {  
 
+    app.set('view engine', 'ejs')
+    app.set('views', path.join(DIST_DIR, 'templates'));
+
     app.use('/static', express.static(path.join(DIST_DIR, 'static')));
 
     app.get('/', (req, res)=>{
-        res.sendFile(path.join(DIST_DIR, 'templates/home.html'));
+        res.render('home.ejs', {head: ''});
     });
 
     app.get('/article/:id', (req, res)=>{
-        res.sendFile(path.join(DIST_DIR, 'templates/article.html'));
+
+        let article = data.find(item=>{
+            return item.id == req.params.id
+        })
+
+        res.render('article.ejs', {
+            head: `<meta name="title" content="${article.title}"><meta name="description" content="${article.intro}">`
+        });
     });
 
 
@@ -69,24 +82,6 @@ else {
 app.get('/data', (req, res)=>{
     res.json(data);
 });
-
-
-
-
-
-
-
-
-// app.use('/static', express.static(path.join(__dirname, '../dist/static')));
-
-
-// app.get('/', (req, res)=>{
-//     res.sendFile(path.join(__dirname, '../dist/index.html'));
-// });
-
-// app.get('/about', (req, res)=>{
-//     res.sendFile(path.join(__dirname, '../dist/about/index.html'));
-// });
 
 
 

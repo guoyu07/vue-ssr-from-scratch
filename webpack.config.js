@@ -95,8 +95,9 @@ var config = {
             },
             chunks: [obj.page, "vendors"],
             template: 'src/index.template.ejs',
-            filename: `../templates/${obj.page}.html`,
+            filename: `../templates/${obj.page}.ejs`,
             title: obj.title,
+            head: '<%- head %>',
             hash:true,
         })
     })),
