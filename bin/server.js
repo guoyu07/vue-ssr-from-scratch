@@ -10,7 +10,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const DIST_DIR = path.join(__dirname, '../dist');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 
 const app = express();
@@ -61,7 +61,7 @@ else {
     app.use('/static', express.static(path.join(DIST_DIR, 'static')));
 
     app.get('/', (req, res)=>{
-        res.render('home.ejs', {head: ''});
+        res.render('home.ejs', {head: '',content: ''});
     });
 
     app.get('/article/:id', (req, res)=>{
@@ -71,7 +71,8 @@ else {
         })
 
         res.render('article.ejs', {
-            head: `<meta name="title" content="${article.title}"><meta name="description" content="${article.intro}">`
+            head: `<meta name="title" content="${article.title}"><meta name="description" content="${article.intro}">`,
+            content: JSON.stringify(article)
         });
     });
 

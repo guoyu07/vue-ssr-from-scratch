@@ -98,7 +98,9 @@ var config = {
             filename: `../templates/${obj.page}.ejs`,
             title: obj.title,
             head: '<%- head %>',
+            content: '<%- content %>',
             hash:true,
+            inject: 'body',
         })
     })),
     // watch: NODE_ENV == 'development',
