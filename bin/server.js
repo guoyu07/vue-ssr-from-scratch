@@ -32,23 +32,23 @@ if(NODE_ENV === 'development') {
 
 
     app.get("/", (req, res, next) => {
-        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/home.ejs'), (err, result) => {
+        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/home.ejs'), "utf8", (err, result) => {
             if (err) {
                 return next(err);
             }
             res.set('content-type', 'text/html');
-            res.send(result);
+            res.send(result.replace(/(<%)(.*?)(%>)/g,''));
             res.end();
         });
     });
 
     app.get("/article/:id", (req, res, next) => {
-        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/article.ejs'), (err, result) => {
+        compiler.outputFileSystem.readFile(path.join(DIST_DIR, 'templates/article.ejs'), "utf8", (err, result) => {
             if (err) {
                 return next(err);
             }
             res.set('content-type', 'text/html');
-            res.send(result);
+            res.send(result.replace(/(<%)(.*?)(%>)/g,''));
             res.end();
         });
     });
