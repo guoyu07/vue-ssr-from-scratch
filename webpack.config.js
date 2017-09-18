@@ -28,7 +28,8 @@ var config = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            '@': path.resolve(__dirname, 'src'),
+            '@src': path.resolve(__dirname, 'src'),
+            '@assets': path.resolve(__dirname, 'assets'),
         }
     },
     module: {
@@ -69,12 +70,6 @@ var config = {
             },
         ]
     },
-    devServer: {
-        contentBase: path.resolve(__dirname, 'dist/templates'),
-        port: 8080,
-        inline: true,
-        // stats: 'errors-only',
-    },
     plugins: [
         new webpack.DefinePlugin({
             'NODE_ENV': JSON.stringify(NODE_ENV),
@@ -90,11 +85,16 @@ var config = {
                 collapseWhitespace: true,
                 removeComments: true,
                 removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true
+                removeScriptTypeAttributes: false,
+                removeStyleLinkTypeAttributes: false
             },
-            chunks: [obj.page, "vendors"],
-            template: 'src/index.template.ejs',
+            // chunks: [obj.page],
+            excludeChunks: pages.reduce((memo, value)=>{
+                if(value.page != obj.page)
+                    memo.push(value.page)
+                return memo
+            },[]),
+            template: 'index.template.ejs',
             filename: `../templates/${obj.page}.ejs`,
             title: obj.title,
             head: '<%- head %>',
@@ -103,7 +103,6 @@ var config = {
             inject: 'body',
         })
     })),
-    // watch: NODE_ENV == 'development',
     devtool: NODE_ENV == 'development' ? 'eval-source-map' : false,
 }
 
