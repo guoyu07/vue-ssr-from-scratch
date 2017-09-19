@@ -9,14 +9,14 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 
-const pages = require('./bin/config');
+const { pages } = require('./bin/config');
 
 
 var config = {
     entry: (()=>{
         let e = {};
-        for(let obj of pages) {
-            e[obj.page] = `./src/pages/${obj.page}.js`
+        for(let page of pages) {
+            e[page.name] = `./src/pages/${page.name}.js`
         }
         return e;
     })(),
@@ -28,6 +28,7 @@ var config = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
+            'vue$': 'vue/dist/vue.esm.js',
             '@src': path.resolve(__dirname, 'src'),
             '@assets': path.resolve(__dirname, 'assets'),
         }
@@ -79,7 +80,7 @@ var config = {
         new webpack.optimize.CommonsChunkPlugin('vendors'),
         new ExtractTextPlugin("css/styles.css"),
         
-    ].concat(pages.map(obj=>{
+    ].concat(pages.map(page=>{
         return new HtmlWebpackPlugin({
             minify: {
                 collapseWhitespace: true,
@@ -88,15 +89,15 @@ var config = {
                 removeScriptTypeAttributes: false,
                 removeStyleLinkTypeAttributes: false
             },
-            // chunks: [obj.page],
+            // chunks: [page.name],
             excludeChunks: pages.reduce((memo, value)=>{
-                if(value.page != obj.page)
-                    memo.push(value.page)
+                if(value.name != page.name)
+                    memo.push(value.name)
                 return memo
             },[]),
             template: 'index.template.ejs',
-            filename: `../templates/${obj.page}.ejs`,
-            title: obj.title,
+            filename: `../templates/${page.name}.ejs`,
+            title: page.title,
             head: '<%- head %>',
             content: '<%- content %>',
             hash:true,

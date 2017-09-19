@@ -1,16 +1,21 @@
-require('babel-register')
+
+
 
 const pages = [
     {
-        page: 'home', 
+        name: 'home', 
         title:'Home Page', 
         url: '/'
     },
     {
-        page: 'about', 
+        name: 'about', 
         title:'About Page', 
         url: '/about'
     },
 ]
 
-module.exports = pages;
+
+
+module.exports = {
+    pages: pages
+};

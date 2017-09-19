@@ -1,9 +1,7 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router';
-
 import Content from '../components/about/Content'
 
-Vue.use(VueRouter)
+
 
 
 const routes = [
