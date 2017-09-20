@@ -10,10 +10,15 @@ const routes = [
 ]
 
 
-const router = new VueRouter({
+// const router = new VueRouter({
+//     mode: 'history',
+//     routes
+// });
+
+
+// export default router;
+
+export default new VueRouter({
     mode: 'history',
     routes
 });
-
-
-export default router;

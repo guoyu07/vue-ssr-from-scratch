@@ -86,8 +86,8 @@ var config = {
                 collapseWhitespace: true,
                 removeComments: true,
                 removeRedundantAttributes: true,
-                removeScriptTypeAttributes: false,
-                removeStyleLinkTypeAttributes: false
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true
             },
             // chunks: [page.name],
             excludeChunks: pages.reduce((memo, value)=>{

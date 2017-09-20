@@ -1,7 +1,6 @@
 <template>
 <div>
     <my-header/>
-    <slider/>
     <router-view></router-view>
     <my-footer/>
 </div>
@@ -10,8 +9,6 @@
 <script>
 import MyHeader from '../components/global/Header.vue';
 import MyFooter from '../components/global/Footer.vue';
-import Slider from '../components/home/Slider.vue';
-
 
 export default {
     data () {
@@ -22,7 +19,6 @@ export default {
     components: {
         MyHeader,
         MyFooter,
-        Slider
     },
     methods: {
         
